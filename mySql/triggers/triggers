@@ -1,0 +1,13 @@
+
+
+delimiter //
+ CREATE TRIGGER trigger_My_Check_Product BEFORE UPDATE ON My_Check_Product
+    FOR EACH ROW
+BEGIN
+    IF OLD.amount != NEW.amount THEN
+        SET NEW.sum = (select price from Product where NEW.Product_ID = ID_Product) * NEW.amount;
+    END IF;
+END;//
+delimiter ;
+
+
